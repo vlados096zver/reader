@@ -20,7 +20,7 @@
                      [style.width.%]="(item[1].x - item[0].x) / imageWidth * 100"
                      [style.height.%]="(item[3].y - item[1].y) / imageWidth * 100"
                      class="elem" [attr.index]="index"
-                     [class.active]="activeIndex.includes(index)"
+                     [class.active]="activeIndex == index"
                   (click)="changeElem(index)">
                 </div>
               </ng-container>
@@ -60,7 +60,7 @@
             <app-info *ngIf="texts.length > 0"
                       [item]="item"
                       [index]="index"
-                      [class.active]="activeIndex.includes(index)"
+                      [class.active]="activeIndex == index"
                       (click)="changeElem(index)"></app-info>
         </ng-container>
       </div>

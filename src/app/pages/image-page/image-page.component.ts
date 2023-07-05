@@ -15,7 +15,7 @@ export class ImagePageComponent implements OnInit {
   results: any = {};
   polygons: any[] = [];
   texts: [] = [];
-  activeIndex: any[] = []
+  activeIndex: any = []
 
   handleFile(event: any) {
 
@@ -122,7 +122,7 @@ export class ImagePageComponent implements OnInit {
   }
 
   changeElem(index: number) {
-    this.activeIndex.push(index);
+    this.activeIndex = index;
   }
 
 
