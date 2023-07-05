@@ -1,0 +1,70 @@
+
+<section class="info">
+  <div class="container">
+    <div class="info__wrap">
+
+      <div class="info__item info__item--gallery" *ngIf="arr.length > 0">
+        <div class="info__box" *ngFor="let item of arr">
+          <img [src]="item">
+        </div>
+      </div>
+
+      <div class="info__item info__item--single" *ngIf="arr.length > 0">
+        <div class="info__holder">
+          <ng-container *ngFor="let item of arr; let index = index">
+            <div class="info__image" *ngIf="index == arr.length - 1">
+              <img [src]="item" #image (load)="loadImage()">
+              <ng-container *ngFor="let item of polygons; let index = index">
+                <div [style.top.%]="item[0].y / imageHeight * 100"
+                     [style.left.%]="item[0].x / imageWidth * 100"
+                     [style.width.%]="(item[1].x - item[0].x) / imageWidth * 100"
+                     [style.height.%]="(item[3].y - item[1].y) / imageWidth * 100"
+                     class="elem" [attr.index]="index"
+                     [class.active]="activeIndex.includes(index)"
+                  (click)="changeElem(index)">
+                </div>
+              </ng-container>
+            </div>
+          </ng-container>
+          <div class="info__user">
+            <button class="info__fit">
+              <img class="info__pic" src="assets/img/icon-fit.svg" alt="fit">
+              <span>Fit screen</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="info__item info__item--content">
+        <div class="info__row">
+          <div class="info__elem info__elem--save">
+            <label for="info__save" class="info__label">
+              <img class="info__pic" src="assets/img/icon-save.svg" alt="save">
+              <span>Save</span>
+            </label>
+            <input id="info__save" type="file" (change)="handleFile($event)" class="info__input"/>
+          </div>
+          <div class="info__elem info__elem--set">
+            <img class="info__pic" src="assets/img/icon-save.svg" alt="set">
+            <span>Set JSON scheme</span>
+            <input id="info__set" type="file" (change)="onFileLoad($event)" class="info__input"/>
+          </div>
+        </div>
+        <div class="info__col">
+          <div class="info__edit">
+            <img src="assets/img/icon-edit.svg" alt="edit">
+          </div>
+          <p class="info__name">PXL_20230106_12332.JPG</p>
+        </div>
+        <ng-container *ngFor="let item of texts; let index = index">
+            <app-info *ngIf="texts.length > 0"
+                      [item]="item"
+                      [index]="index"
+                      [class.active]="activeIndex.includes(index)"
+                      (click)="changeElem(index)"></app-info>
+        </ng-container>
+      </div>
+
+    </div>
+  </div>
+</section>
