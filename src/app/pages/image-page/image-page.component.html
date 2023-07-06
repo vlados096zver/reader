@@ -21,7 +21,7 @@
                      [style.height.%]="(item[3].y - item[1].y) / imageWidth * 100"
                      class="elem" [attr.index]="index"
                      [class.active]="activeIndex == index"
-                  (click)="changeElem(index)">
+                  (click)="changeElem(index);scrollElem(index)">
                 </div>
               </ng-container>
             </div>
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div class="info__item info__item--content">
+      <div class="info__item info__item--content" #sectionsItem>
         <div class="info__row">
           <div class="info__elem info__elem--save">
             <label for="info__save" class="info__label">
@@ -50,16 +50,17 @@
             <input id="info__set" type="file" (change)="onFileLoad($event)" class="info__input"/>
           </div>
         </div>
-        <div class="info__col">
+        <div class="info__col" *ngIf="fileName">
           <div class="info__edit">
             <img src="assets/img/icon-edit.svg" alt="edit">
           </div>
-          <p class="info__name">PXL_20230106_12332.JPG</p>
+          <p class="info__name">{{fileName}}</p>
         </div>
         <ng-container *ngFor="let item of texts; let index = index">
             <app-info *ngIf="texts.length > 0"
                       [item]="item"
                       [index]="index"
+                      class="info__data{{ index }}"
                       [class.active]="activeIndex == index"
                       (click)="changeElem(index)"></app-info>
         </ng-container>

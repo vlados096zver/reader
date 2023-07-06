@@ -7,6 +7,7 @@ import {ViewChild, Component, AfterViewInit, ElementRef, OnInit, AfterViewChecke
 })
 export class ImagePageComponent implements OnInit {
   @ViewChild('image') image?: ElementRef;
+  @ViewChild('sectionsItem') sectionsItem?: ElementRef;
 
   fileUrl = '';
   arr: any = [];
@@ -15,17 +16,19 @@ export class ImagePageComponent implements OnInit {
   results: any = {};
   polygons: any[] = [];
   texts: [] = [];
-  activeIndex: any = []
+  activeIndex: number = -1;
+  fileName: string = '';
 
   handleFile(event: any) {
 
     const file: File = event.target.files[0];
     if (file) {
       const fileReader = new FileReader();
-      fileReader.readAsDataURL(event.target.files[0]);
+      fileReader.readAsDataURL(file);
       fileReader.onload = (e: any) => {
         this.fileUrl = e.target.result;
         this.arr.push(this.fileUrl);
+        this.fileName = file.name;
       };
      }
   }
@@ -125,5 +128,15 @@ export class ImagePageComponent implements OnInit {
     this.activeIndex = index;
   }
 
+  scrollElem(index: number) {
+    if(this.sectionsItem) {
+      const sectionsItem = this.sectionsItem.nativeElement;
+      const element = sectionsItem.querySelector('.info__data' + index);
+      if (element) {
+        const parentBCR = sectionsItem.getBoundingClientRect();
+        sectionsItem.scrollTop = element.offsetTop - parentBCR.top ;
+      }
+    }
+  }
 
 }
